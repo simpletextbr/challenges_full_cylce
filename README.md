@@ -17,3 +17,18 @@ Você pode checar a minha imagem [Aqui](https://hub.docker.com/repository/docker
 
 ## Desafio Com Docker Compose e Node.JS 
 
+Este desafio baseia-se na criação de uma aplicação node com acesso a um banco de dados e gestão dele podendo incluir dados no banco e lista-los na tela inicial utilizando um proxy reverso com nginx para expor ao acesso. 
+
+Para rodar a imagem basta rodar o seguinte comando
+```
+$ docker-compose up -d
+```
+
+valido lembar que após isso devera ser criado a tabela no banco de dados local no docker acessando o mesmo
+
+```
+$  docker exec -it db  mysql -u nodeuser -p  
+$  create table people(id int not null auto_increment, name varchar(255), primary key(id));
+```
+
+apos isso basta apenas acessar a rota "/add" para adicionar novos nomes a sua lista
