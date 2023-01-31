@@ -1,7 +1,7 @@
 
 # Docker Files
-/Node/.docker/*
-!/Node/.docker/.gitkeep
+.docker/*
+!.docker/.gitkeep
 
 # Node Modules
 /Node/node_modules

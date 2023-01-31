@@ -22,9 +22,7 @@ services:
       - nodenet
     tty: true # -it
     container_name: app
-    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh
-    ports:
-      - "3000:3000"
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s docker-entrypoint.sh node index.js
     volumes:
       - ./Node:/usr/src/app:rw
       - /usr/src/app/node_modules
@@ -38,11 +36,11 @@ services:
     restart: always # if down always auto restart
     tty: true # -it
     volumes:
-      - ./Node/.docker/.mysql:/var/lib/mysql
+      - .docker/.mysql:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=nodedb
-      - MYSQL_USER=nodeapp
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=nodeuser
+      - MYSQL_ROOT_PASSWORD=nodeuser
     ports:
       - '3306:3306'
     networks:
