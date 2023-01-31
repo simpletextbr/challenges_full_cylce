@@ -12,6 +12,8 @@ services:
       - "8080:80"
     networks:
       - nodenet
+    depends_on:
+      - app
     
 
   app: 
