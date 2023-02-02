@@ -13,7 +13,32 @@ const connection = mysql.createConnection({
     database: 'nodedb'
 })
 
-connection.connect()
+const hasTableCreated = () => new Promise((resolve, reject) => {
+    connection.connect()
+    connection.query(`SHOW TABLES LIKE '%people%'`, (err, rows) => {
+        if(rows === undefined) reject(new Error(err))
+        else if(rows.length === 0) resolve(false)
+        else resolve(true)
+    })
+})
+
+
+const start = async() => {
+    try{
+        const hasTable = await hasTableCreated().then(function(results){
+            return results
+
+        }).catch(function(err){
+            console.log("Promise rejection error", err)
+        })
+        const createtable = 'create table people(id int not null auto_increment, name varchar(255), primary key(id))'
+        if(hasTable === false) connection.query(createtable)
+    }catch(error){
+        return error
+    }     
+}
+
+start()
 
 app.get('/add', (req, res) => {
     const names = ["Wesley", "Erika", "Madalena", "Jose", "Luiz"]
@@ -35,7 +60,6 @@ app.get('/', async (req, res) => {
     `<h1>Full Cycle Rocks!</h1>
         <ul>
             ${data.map(element => {
-                console.log(element)
                 if (element === undefined) return ('<li> There is no data here!</li>')
                 else return (`<li>${element.name}</li>`)
             }).join('')} 
