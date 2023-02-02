@@ -24,11 +24,4 @@ Para rodar a imagem basta rodar o seguinte comando
 $ docker-compose up -d
 ```
 
-valido lembar que após isso devera ser criado a tabela no banco de dados local no docker acessando o mesmo
-
-```
-$  docker exec -it db  mysql -u nodeuser -p  
-$  create table people(id int not null auto_increment, name varchar(255), primary key(id));
-```
-
 apos isso basta apenas acessar a rota "/add" para adicionar novos nomes a sua lista
